@@ -193,7 +193,7 @@ Einbau möglichst senkrecht an der Frontplatte der Navigationsecke (außen oder 
 
 \subsection{Kabel und Geräte anschließen}
 
-Der Logger schaltet sich automatisch mit der Betriebsspannung ein und aus. Nach dem Einschalten dauert es ca. 30 Sekunden bis der Logger anfängt, Daten zu schreiben. Leuchtet die grüne Status-LED, ist der Logger aktiv. Der Anschluss erfolgt über die RJ45-Buchse. Hier werden alle Signale zugeführt und die Betriebsspannung angeschlossen. Ein passendes Kabel ist im Lieferumfang enthalten. Falls du ein längeres Kabel brauchst, verwende ein einfaches normales \textbf{Patchkabel} (Netzwerkkabel), wie es in jedem Elektronikmarkt erhältlich ist. Achte darauf, dass es \textit{kein} \glqq gekreuztes\grqq{} Kabel oder \glqq Cross-Kabel\grqq{} zum direkten Verbinden zweier Computer ist.
+Der Logger schaltet sich automatisch mit der Betriebsspannung ein und aus. Nach dem Einschalten dauert es ca. 30 Sekunden bis der Logger anfängt, Daten zu schreiben. Leuchtet die grüne Status-LED, ist der Logger aktiv. Der Anschluss erfolgt über die RJ45-Buchse. Hier werden alle Signale zugeführt und die Betriebsspannung angeschlossen. Ein passendes Kabel ist im Lieferumfang enthalten. Falls du ein längeres Kabel brauchst, verwende ein einfaches normales \textbf{Patchkabel} (Netzwerkkabel), wie es in jedem Elektronikmarkt erhältlich ist. Achte darauf, dass es \textit{kein} \glqq gekreuztes\grqq{} Kabel oder \glqq Cross-Kabel\grqq{} zum direkten Verbinden zweier Computer ist. % XXXwschi Ein \glqq Cross-Kabel\grqq{} erkennt man daran, dass ...
 
 Schneide das Patchkabel entzwei, du braucht nur eine Seite (Stecker und offenes Ende). An den Farben der Drähte erkennst du, ob das Kabel europäisch oder amerikanisch ist. Wenn die äußersten Drähte im durchsichtigen Stecker grün sind, hast du ein Kabel nach europäischer Norm (568A), wenn sie orange sind, ist es eines nach amerikanischer Norm (568B).
 
@@ -254,8 +254,8 @@ Schließe den NMEA-Ausgang des Echolotes an den NMEA-Eingang des Loggers an. Ver
 \rowcolors{1}{}{boxcol}
 \begin{tabular}{cc} \toprule
 Signal Echolot & NMEA-A\\ \midrule
-- & Pin 3\\
-+ & Pin 6\\ \bottomrule
+- & Pin 5\\
++ & Pin 4\\ \bottomrule
 \end{tabular}	
 \caption{Belegungplan Echolot NMEA}
 \end{table}
@@ -292,8 +292,8 @@ Schließe den NMEA-Ausgang des GPS-Gerätes an den NMEA-Eingang des Loggers an. 
 \rowcolors{1}{}{boxcol}
 \begin{tabular}{cc} \toprule
 Signal GPS & NMEA-B\\ \midrule
-- & Pin 5\\
-+ & Pin 4\\ \bottomrule
+- & Pin 3\\
++ & Pin 6\\ \bottomrule
 \end{tabular}	
 \caption{Belegungsplan GPS NMEA}
 \end{table}
@@ -315,7 +315,8 @@ GND & Pin 7 & \cbox{white}\cbox{brown}weiß + brauner Strich\\
 
 \subsubsection{Kabel verbinden}
 
-Ideal sind Klemmleisten. Wenn du das Kabel an eine Lüsterklemme anschließt, kannst du das abisolierte Ende umbiegen, dann hält es besser. 
+Ideal sind Klemmleisten. Wenn du das Kabel an eine Lüsterklemme anschließt, kannst du das abisolierte Ende umbiegen, dann hält es besser.
+Alternativ kannst Du eine Aderendhülse aufklemmen.
 
 \subsubsection{Zugentlastung}
 
@@ -326,6 +327,7 @@ Das lose Kabelende muss beim Anschluss an die Bordelektronik mit einer Zugentlas
 Nach Anlegen der Betriebsspannung und einer kurzen Initialisierungszeit (30 Sekunden), werden die Daten automatisch auf die Karte geschrieben. 
 
 \subsection{Bedienfeld}
+\label{subsec:Bedienfeld}
 
 \bild{8}{bedienfeld}{Bedien- und Anschlussfeld sind selbsterklärend}
 
@@ -346,17 +348,17 @@ Bezeichnung & Zustand & Bemerkung\\ \midrule
 \caption{Bedeutung der Bedien- und Anschlusselemente}
 \end{table}
 
-Stecke die SD-Karte \textbf{vor dem Einschalten} des Loggers ein. Entferne die Karte nur aus dem Logger, wenn das Gerät \textbf{ausgeschaltet} ist. Bei jedem Start und jede Stunde wird automatisch eine neue Datei auf der Karte erzeugt. 
+Stecke die SD-Karte \textbf{vor dem Einschalten} des Loggers ein. Entferne die Karte nur aus dem Logger, wenn das Gerät \textbf{ausgeschaltet} ist. Bei jedem Start und in regelmäßigen Abständen wird eine neue Datei auf der Karte erzeugt. 
 
 \subsection{Fehler}
 
-Wenn die rote Status-LED gleichmäßig im Sekundentakt blinkt, ist beim Schreiben der Daten ein Fehler aufgetreten. Dies kann sowohl beim Starten des Loggers als auch im Betrieb auftreten. Folgende Fehler werden durch die Status-LED angezeigt:
+Wenn die rote Status-LED (siehe Abschnitt \ref{subsec:Bedienfeld}) gleichmäßig im Sekundentakt blinkt, ist beim Schreiben der Daten ein Fehler aufgetreten. Dies kann sowohl beim Starten des Loggers als auch im Betrieb auftreten. Folgende Fehler werden durch die Status-LED angezeigt:
 
 \begin{table}[H]
 \centering
 \rowcolors{1}{}{boxcol}
 \begin{tabular}{p{2cm}p{3cm}p{4cm}} \toprule
- Zustand & Bedeutung & Maßnahme\\ \midrule
+ Status-LED & Bedeutung & Maßnahme\\ \midrule
 \cbox{red}Rot blinkt & SD-Karte ist voll. & SD-Karte durch eine leere Karte ersetzen. \\ 
 \cbox{red}Rot blinkt & SD-Karte ist falsch\newline formatiert & Die SD-Karte hat ein nicht unterstütztes Dateiformat. Unterstützt werden nur FAT-16 und FAT-32. \\
 \cbox{red}Rot blinkt & SD-Karte ist nicht beschreibar oder wird nicht erkannt. & Prüfe den Schreibschutzschalter an der SD-Karte.\newline Teste die Karte auf deinem PC. \\
@@ -374,7 +376,7 @@ Tabelle \ref{tab:anzeige} zeigt die Zustände der Status-LED bei Normalbetrieb.
 \rowcolors{1}{}{boxcol}
 \begin{tabular}{p{4cm}p{5cm}} \toprule
  Zustand & Bedeutung\\ \midrule
-\cbox{green}Grün leuchtet,\newline wenige Sekunden & Betriebssystem wird geladen.  \\
+\cbox{green}Grün leuchtet,\newline wenige Sekunden & Betriebssystem wird geladen.  \\ % XXXwschi das passt nicht mit dem Logger zusammen
 \cbox{green}Grün leuchtet,\newline ca. 30 Sekunden & Selbsttest/Initialisierung des Loggers.\\
 \cbox{green}\textbf{Grün leuchtet \newline\cbox{red}Rot flackert} & \textbf{Der Logger empfängt Daten und schreibt diese auf die SD-Karte.} \\
 LED aus & Logger wird abgeschalten. \\
@@ -389,15 +391,43 @@ LED aus & Logger wird abgeschalten. \\
 
 Empfohlen wird eine \textbf{4-GB-Karte}. Darauf passen etwa 40 Tage Datenaufzeichnung (ca. 4 MB pro Stunde, 100 MB pro Tag). Es funktioniert jede SD Karte mit FAT-32-Formatierung. 
 
+\begin{Hinweis}
+Mit 4-GB-Karten ist ein automatischer Betrieb nur möglich, wenn der Logger auf die Version 1.0.12 oder neuer upgedatet wurde.
+\end{Hinweis}
+
 \subsection{Firmware-Update mit SD-Karte}\label{sec:firmware}
 
-Für das Firmware-Update muss eine Karte mit \textbf{FAT-16-Dateisystem} verwendet werden. Am einfachsten geht das mit einer SD-Karte mit 2 GB oder kleiner. Diese kann man einfach mit FAT-16 (auf manchen Betriebssystemen auch einfach nur FAT) neu formatieren oder auf der Karte eine entsprechende Partition anlegen. Der OpenSeaMap-Datenlogger unterstützt 2 GiB FAT-16-Dateisysteme. 
+Für das Firmware-Update muss eine SD-Karte mit \textbf{FAT-16-Dateisystem} verwendet werden. Am einfachsten geht das mit einer SD-Karte mit 2 GB oder kleiner. Diese kann man einfach mit FAT-16 (auf manchen Betriebssystemen auch einfach nur FAT) neu formatieren oder auf der Karte eine entsprechende Partition anlegen. Der OpenSeaMap-Datenlogger unterstützt 2 GiB FAT-16-Dateisysteme. 
 
-Die aktuellste Firmwaredatei kann von \textbf{http://wkla.dyndns.org/mcslog/} herunter geladen werden und wird dann auf die SD-Karte ins Hauptverzeichnis kopiert. 
+Die aktuellste Firmwaredatei kann von \textbf{http://mcsdepthlogger.tk/} herunter geladen werden, und muß dann auf die SD-Karte ins Hauptverzeichnis kopiert werden.
 
 \begin{Hinweis}
 Ein Softwaretool zur Vereinfachung des Update-Vorgangs ist in Arbeit. 
 \end{Hinweis}
+
+\section{Auswertung am PC}
+
+Mit dem Programm \textbf{MCS Depth Logger} kann man die Loggerdaten verwalten und den Logger konfigurieren. Die Software enthält folgende Features:
+\begin{compactenum}
+    \item Verwaltung/Backup/Restore der SD Karten
+    \item Verwaltung der Firmware inklusive Vorbereitung der SD Karte für ein eventuelles Firmware Update
+    \item Überprüfung/Korrektur der geloggten Daten
+    \item Export ins NMEA Format
+    %\item Upload auf einen Server (Der OpenSeaMap Server wird z.Z. noch nicht unterstützt) % XXX wschi check this
+    \item Darstellung einzelner Daten auf Karten
+    \item Verwaltung von Routen.
+    \begin{compactenum}
+        \item Hinzufügen/Löschen von einzelnen Dateien
+        \item Darstellung auf Karte
+    \end{compactenum}
+    \item Kartendarstellung
+    \begin{compactenum}
+        \item verschiedene Kartenprovider: OpenStreetMap, OpenSeaMap, Virtual Earth
+        \item Möglichkeit verschiedener Overlays wie Sportstätten, Seezeichen. (Weitere sind in Vorbereitung)
+        \item Darstellung verschiedener Daten als Diagramm: Tiefe, Höhe, Beschleuningung und Lage, Geschwindigkeit
+    \end{compactenum}
+    \item Internationalisierung: Sprachen Deutsch und Englisch, Maßsysteme: metrisch, imperial, nautisch
+\end{compactenum}
 
 \section{Betrieb}
 
@@ -405,9 +435,14 @@ Ein Softwaretool zur Vereinfachung des Update-Vorgangs ist in Arbeit.
 
 \subsubsection{Start}
 
-Wenn der Logger an die Stromversorgung der Navigationsgeräte angeschlossen ist, startet er automatisch, sobald die Navigationsgeräte eingeschaltet werden. Wenn die Navigationsgeräte ausgeschaltet werden (oder bei einer Unterbrechung der Stromversorgung) wird die Log-Datei automatisch geschlossen. Sobald die Stromversorgung wieder eingeschaltet wird, wird automatisch eine neue Datei angelegt. 
+Wenn der Logger an die Stromversorgung der Navigationsgeräte angeschlossen ist, startet er automatisch, sobald die Navigationsgeräte eingeschaltet werden. Wenn die Navigationsgeräte ausgeschaltet werden (oder bei einer Unterbrechung der Stromversorgung) wird die Log-Datei automatisch geschlossen.\footnote{Der Logger hat einen Gold-Cup als Energie-Puffer, damit bei einer Stromunterbrechung keine Daten verloren gehen.}
 
-Der Logger hat einen Gold-Cup als Energie-Puffer, damit bei einer Stromunterbrechung keine Daten verloren gehen.	
+Sobald die Stromversorgung wieder eingeschaltet wird, wird automatisch eine neue Datei angelegt. 
+
+
+\begin{Hinweis}
+Einige ältere Geräte haben einen Hardwarefehler, durch den der Goldcap nicht aktiv wird.
+\end{Hinweis}
 
 \subsubsection{SD-Karte}
 
@@ -474,8 +509,8 @@ Dieses Produkt wurde mit der größtmöglichen Sorgfalt entwickelt, geprüft und
 
 \subsection{Importeur für Deutschland}
 \textbf{AK MODUL-BUS Computer GmbH\\
-Münsterstr. 2\\
-48477 Hörstel-Riesenbeck }
+Viktoriastr.\ 45\\
+44787 Bochum }
 
 \section{Wir bedanken uns}
 
@@ -498,7 +533,7 @@ Für Redaktion, Lektorat und Satz.
 \newpage
 
 \textbf{Der Community von Wikimedia Commons}\\
-Für die vielen Bilder von denen wir auch einige in dieser Anleitung eingesetzt haben. Im Speziellen an Mabschaaf und ThePolish.
+Für die vielen Bilder, von denen wir auch einige in dieser Anleitung eingesetzt haben. Im Speziellen an Mabschaaf und ThePolish.
 
 \vspace{2.5cm}
 
@@ -508,7 +543,7 @@ Für die vielen Bilder von denen wir auch einige in dieser Anleitung eingesetzt 
 Für das Projekt \glqq Flachwassertiefen durch Crowdsourcing\grqq{} und die Idee, diesen Daten-Logger zu entwickeln.
 
 \textbf{Den Skippern}\\
-Für das weltweite Sammeln von Wassertiefen und für das gemeinsame erstellen dieser tollen Seekarte.
+Für das weltweite Sammeln von Wassertiefen und für das gemeinsame Erstellen dieser tollen Seekarte.
 
 % Notizseiten
 \newpage
