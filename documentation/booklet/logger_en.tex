@@ -1,0 +1,523 @@
+% praemble.tex
+
+\documentclass[pdftex, 8pt, paper=130mm:92mm,pagesize]{scrartcl}
+
+% pakete laden
+
+\usepackage[lmargin = {15mm} , rmargin = {10mm} , tmargin = {13mm} , bmargin = {8mm} ]{geometry} % Seite und Ränder definieren
+\usepackage[english]{babel} % Sprache deutsch
+\usepackage[T1]{fontenc} % für Umlaute
+\usepackage[utf8]{inputenc} % Zeichenkodierung / unter Windows latin1
+\usepackage{graphicx} % Bilder einbinden 
+\usepackage{microtype} % besseres Schriftbild
+\usepackage{colortbl} % gefärbte Tabellen
+\usepackage{color}
+\usepackage{fancybox} % verschiedene Boxentypen (ovalbox, shadowbox, etc)
+\fboxrule=0pt\relax  % fbox ohne rahmen
+\usepackage{pdfpages} % PDF direkt in Datei einfügen
+\usepackage{calc} % rechnen mit latex
+\usepackage{hhline} % erweiterte Steuerung von Linien
+\usepackage{multirow} % in tabelle zellen zusammenfassen
+\usepackage{totpages} % letzte Seite - für Seiten von xxx
+\usepackage{titlesec} % Chapter und Section formatieren
+\usepackage{hyperref} % für verlinkungen in erzeugter PDF-Datei (Kapitelsprüge von TOC)
+\usepackage{bookmark}
+\usepackage[all]{hypcap} % sprungmarke nicht zu caption, sondern zur Abbildung für hyperref
+\usepackage{caption}[2007/09/01] % Beschriftung von Abbildungne, Tabellen, etc.
+\usepackage[subfigure]{tocloft}
+\usepackage{paralist}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{longtable}
+\usepackage{subfigure}
+\usepackage{float}
+\restylefloat{figure}
+
+% Bild Beschriftung anpassen
+\captionsetup{width=.8\textwidth,labelfont=bf,font={sf,small},format=plain}
+\addto\captionsngerman{\renewcommand{\figurename}{Abb.}}
+
+% Define user colors using the RGB model - TT colors
+\definecolor{darkblue}{RGB}{14,46,99}
+\definecolor{lightgrey}{RGB}{92,92,92}
+\definecolor{boxheadcol}{gray}{.6}
+\definecolor{boxcol}{gray}{.9}
+
+% Metadaten einbinden
+\newcommand{\titel}{OpenSeaMap Data Logger}
+\newcommand{\untertitel}{Instruction and installation manual}
+\newcommand{\autor}{Wilfried Klaas}
+\newcommand{\firma}{OpenSeaMap Projekt}
+\newcommand{\documentnr}{V0.1}
+
+% Section auf neuer Seite
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
+
+% Farben für Links und Daten für PDF Erstellung definieren
+\hypersetup{
+    bookmarksnumbered=true,
+    colorlinks=true, 
+    breaklinks=true, 
+    linkcolor=black, 
+    menucolor=darkblue, 
+    urlcolor=darkblue,     
+    pdftitle={\titel\  \untertitel},
+    pdfauthor={\autor},
+    pdfcreator={\firma},
+    pdfsubject={\titel\  \untertitel},
+    pdfkeywords={\titel\  \untertitel}
+}
+
+%\renewcommand{\cfttoctitlefont}{\color{darkblue}\normalfont\Large\bfseries\MakeUppercase}
+%\setlength{\cftbeforetoctitleskip}{0pt} 
+%\setlength{\cftaftertoctitleskip}{0pt} 
+%\setlength{\cftbeforechapskip}{2ex}
+%\setlength{\cftbeforesecskip}{0.8ex}
+%\setlength{\cftbeforesubsecskip}{0.8ex}
+
+%\titleformat{\chapter}[hang]{\color{darkblue}\huge\sffamily\bfseries}{\thechapter\quad}{0pt}{\vspace*{-10pt}}
+%\titleformat{\section}[hang]{\color{darkblue}\Large\sffamily\bfseries}{\thesection\quad}{0pt}{\vspace*{-10pt}}
+%\titleformat{\subsection}[hang]{\color{darkblue}\large\sffamily\bfseries}{\thesubsection\quad}{0pt}{\vspace*{-8pt}}
+%\titleformat{\subsubsection}[hang]{\color{darkblue}\normalsize\sffamily\bfseries}{\thesubsubsection\quad}{0pt}{}
+%\titleformat{\paragraph}[hang]{\color{darkblue}\normalsize\sffamily\bfseries}{\theparagraph\quad}{0pt}{}
+
+%\titlespacing{\chapter}{0pt}{-1em}{1em}
+
+\usepackage{scrpage2}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ohead[\pagemark]{\pagemark}
+
+%\setcounter{tocdepth}{2} % Tiefe des Inhaltsverzeichnises - 2 Ebenen
+
+\graphicspath{{bilder/}} % Bilder Unterverzeichnis
+\parindent=0cm % keine Einrückung der ersten Zeile im Absatz
+\setlength{\parskip}{1em} % Abstand zwischen Absätzen
+
+\renewcommand{\familydefault}{\sfdefault} % Serifenlose Schrift
+
+% Umgebungen definieren
+
+% Tipp und Hinweisbox Umgebung - Beginn
+
+\newlength{\iconwidth}
+\setlength{\iconwidth}{2cm}
+
+\newenvironment{displaybox}[2]{%
+  \begin{center}
+    \setlength\arrayrulewidth{0.75pt}%
+    \arrayrulecolor{white}%
+    \renewcommand{\arraystretch}{1.3}%
+    \begin{tabular}{p{\iconwidth}p{\linewidth-4\tabcolsep-\iconwidth}}
+      \multirow{2}{*}{#2}&\cellcolor{boxheadcol}\textbf{\color{white}#1} \\%
+      \hhline{~-}%
+      &\cellcolor{boxcol}%
+}{%
+      \\
+    \end{tabular}
+  \end{center}%
+\arrayrulecolor{black}
+}
+
+\newenvironment{Tipp}{%
+\begin{displaybox}{Tipp}{\includegraphics[width=1.3cm]{icon-tipp}}}%
+{\end{displaybox}}
+
+\newenvironment{Hinweis}{%
+\begin{displaybox}{Hinweis}{\includegraphics[width=1.3cm]{icon-hinweis}}}%
+{\end{displaybox}}
+% Tipp und Hinweisbox Umgebung - Ende
+
+% Umgebung zum Bilder einfügen - Beginn
+\newenvironment{bild}[3]{%
+  \begin{figure}[H]
+    \centerline{\includegraphics[width=#1cm]{#2}}
+    \caption{#3}
+    \label{fig:#2}
+   \end{figure}}
+% Umgebung zum Bilder einfügen - Ende
+
+% Umgebung zum farbige Boxen einfügen - Beginn
+\newenvironment{cbox}[1]{\frame{{\color{#1}\rule{2mm}{2mm}}}\hspace{1mm}}
+% Umgebung zum farbige Boxen einfügen - Ende
+
+\begin{document} % Dokumentanfang
+
+\begin{titlepage}
+	\raggedleft\textbf{\color{darkblue}{\Large \titel \\ \untertitel}}\\
+	\vspace{6mm}
+	\color{darkblue}{\hrule height2pt}
+	\vspace{2mm}
+	\centerline{\includegraphics[width=7cm]{logger.png}}
+%	\vspace{2mm}
+%	\begin{center}
+%	  \centering\color{black}\textsf{ \firma\ - \autor\ - \documentnr}
+%	\end{center}
+\end{titlepage}
+
+% Inhaltsverzeichnis
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+
+
+\section{Introduction}
+
+The OpenSeaMap data logger is capable of logging data of \textbf{two NMEA-0183 devices}, for example depth-sounder and GPS. For this, there are two input channels. Both inputs will be written with a timestamp for a later chronological sorting. Data about acceleration and tilt will also be logged to determine heeling, heaving and pitching. All data will be written to an SD-card. Data is recorded raw for further processing, no filtering is done.
+
+\subsection{Features}
+
+\begin{compactitem}
+\item Data logger for NMEA-data 
+\item Built-in 6-axis motion tracking (Gyroscope and Accelerometer)
+\item Writing data on standard SD-card in NMEA-0183 format
+\item Simplest handling
+\item LED for operation, input data, and SD-card access
+\item 2 NMEA-0183 inputs (4800 Baud)
+\item 1 Seatalk-1 input alternatively (selectable by internal jumper) 
+\item 12 V supply
+\end{compactitem}
+
+
+\section{Installation}
+
+\subsection{Mounting the Logger}
+
+Install the logger to a protected location where you have access to the SD-card and where you can see the LEDs. 
+
+Mount it as perpendicular as possible to the front panel of the navigation area (outside or inside) or perpendicular to a vertical wall behind the top edge - ideally horizontally to the ship's transverse axis. The two arrows on the upper surface indicate the direction in respect to the ship's axis. 
+
+\subsection{Connecting the Cable and the Devices}
+
+The logger will turn on automatically with the operating voltage. After switching on, it takes about 30 seconds until the logger starts to write data. If the green Status-LED is lighting, the logger is active. The connection is made via the RJ45-jack. This is where all signals and the supply are connected. 
+
+A suitable cable comes with the logger. In case that you need to buy a longer one, please use a simple normal \textbf{patch cable} (network cable) as it is available at any electronics store. Make sure that this is \textit{not} a ''crossover'' cable or ''cross cable'' for directly connecting two computers. 
+
+Cut the patch cable, you need one side with a connector and one open end. The colors show you if the cable is European or American. If the outer wires in the transparent plug are green, this is a cable of European standard (568A). If they are orange, the cable is an American standard cable (568B).
+
+\begin{Hinweis}
+Both versions has in common, that the outer wires on the other side are brown.
+\end{Hinweis}
+
+\begin{figure}
+    \subfigure[Patch cable according to American standard.\newline The two outer wires are orange.]{\includegraphics[width=0.49\textwidth]{patchkabel_us}}
+    \subfigure[Patch cable according to European standard.\newline The two outer wires are brown.]{\includegraphics[width=0.49\textwidth]{patchkabel_eu}}
+\caption{Patch cable American / European}
+\end{figure}
+
+\bild{6}{pin_belegung}{Pin assignment}
+
+\begin{table}[H]
+\centering
+\large \textbf{Cable European standard (568A)}\normalsize\\
+\vspace{1mm}
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{ccll} \toprule
+Pin & Pairno. & Color & Logger connection\\ \midrule
+1 & 3 & \cbox{white}\cbox{green}white + green line & Seatalk -\\ 
+2 & 3 & \cbox{green}\cbox{white}green + white line; or green & Seatalk +\\ 
+3 & 2 & \cbox{white}\cbox{orange}white + orange line & NMEA A -\\ 
+4 & 1 & \cbox{blue}\cbox{white}blue + white line; or blue & NMEA B +\\ 
+5 & 1 & \cbox{white}\cbox{blue}white + blue line & NMEA B -\\ 
+6 & 2 & \cbox{orange}\cbox{white}orange + white line; or orange & NMEA A + \\ 
+7 & 4 & \cbox{white}\cbox{brown}white + brown line & GND\\ 
+8 & 4 & \cbox{brown}\cbox{white}brown + white line; or brown & 12 V \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\large \textbf{Cable American standard (568B)}\normalsize\\
+\vspace{1mm}
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{ccll} \toprule
+Pin & Pairno. & Color & Logger connection\\ \midrule
+1 & 2 & \cbox{white}\cbox{orange}white + orange line & Seatalk -\\ 
+2 & 2 & \cbox{orange}\cbox{white}orange + white line; or orange & Seatalk +\\ 
+3 & 3 & \cbox{white}\cbox{green}white + green line & NMEA A -\\ 
+4 & 1 & \cbox{blue}\cbox{white}blue + white line; or blue & NMEA B +\\ 
+5 & 1 & \cbox{white}\cbox{blue}white + blue line & NMEA B -\\ 
+6 & 3 & \cbox{green}\cbox{white}green + white line; or green & NMEA A + \\ 
+7 & 4 & \cbox{white}\cbox{brown}white + brown line & GND \\ 
+8 & 4 & \cbox{brown}\cbox{white}brown + white line; or brown & 12 V \\ \bottomrule
+\end{tabular}	
+\end{table}
+
+\subsubsection{Connecting Sounder NMEA}
+
+Connect the NMEA output of the sounder/sonar to the NMEA input of the logger. Use the NMEA A for the sounder/sonar if possible. 
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{cc} \toprule
+Signal Sonar & NMEA A\\ \midrule
+- & Pin 3\\
++ & Pin 6\\ \bottomrule
+\end{tabular}	
+\caption{Pin assignment Sonar NMEA}
+\end{table}
+
+\subsubsection{Connecting Sounder Seatalk}\label{sec:seatalk}
+
+Connect the Seatalk-1 output of the sonar to the Seatalk-1 input of the logger.
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{cc} \toprule
+Signal Sonar & Seatalk\\ \midrule
+- & Pin 1\\
++ & Pin 2\\ \bottomrule
+\end{tabular}	
+\caption{Pin assignment Sonar Seatalk}
+\end{table}
+\newpage
+The input A has to be switched electrically from NMEA-0183 to Seatalk-1.\newline For this, there are two steps necessary:
+
+\begin{compactenum}
+ \item Open the logger. There is a red jumper in the middle of the board. On the board you will find the words ''Seatalk /NMEA''. For Seatalk, put the bridge on the left and the middle pin (where ''Seatalk'' is written). For NMEA, put it on the middle and the right pin (where ''NMEA'' is written). 
+
+\item Start the configuration program (see \ref{sec:firmware} \nameref{sec:firmware} / Page \pageref{sec:firmware}) and create a configuration file with the appropriate entries. Save this on an SD-card, insert the card in the logger and restart the logger. 
+\end{compactenum}
+
+\subsubsection{Connecting GPS NMEA}
+
+Connect the NMEA output of the GPS device to the NMEA input of the logger.\newline Use the NMEA B for the GPS if possible.
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{cc} \toprule
+Signal GPS & NMEA B\\ \midrule
+- & Pin 5\\
++ & Pin 4\\ \bottomrule
+\end{tabular}	
+\caption{Pin assignment GPS NMEA}
+\end{table}
+
+\subsubsection{Connecting Supply 12 V}
+
+The logger is operating with 12 V voltage (9--15 V). To start the data recording automatically when the navigation devices are turned on, the logger must be connected to the same circuit as the navigation instruments.
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{ccl} \toprule
+Supply & Cable & Color\\ \midrule
+GND & Pin 7 & \cbox{white}\cbox{brown}white + brown line\\
++12 V & Pin 8 & \cbox{brown}\cbox{white}brown + white line; or brown\\ \bottomrule
+\end{tabular}	
+\caption{Pin assignment power supply}
+\end{table}
+
+\subsubsection{Connecting Cable}
+
+Terminal strips are ideal. If you connect the cable to a terminal block, you can bend the stripped end in order to fix it better. 
+
+\subsubsection{Strain Relief}
+
+The loose end of the cable must be secured with a strain relief when connected to the onboard electronics (the wires are very thin). 
+
+\subsection{Start the Logger}
+
+After applying the operating voltage and a short initialization time (30 seconds),\newline the data is written automatically onto the SD-card. 
+
+\subsection{Control Panel}
+
+\bild{8}{bedienfeld}{The control and connection panel is self-explaining}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cp{2cm}p{5cm}} \toprule
+Label & Status & Note\\ \midrule
+\rowcolor{boxcol} SD-Card & Insert the \newline SD-card & We recommend a 4 GB SD-card. It can record up to 40 days. The SD-card must be formatted FAT-32.  \\ 
+
+\multirow{2}{*}{Status} & \cbox{green}Green LED & The logger is active. \\
+& \cbox{red}Red LED & Display the write access to the SD-card \\ 
+
+\rowcolor{boxcol}\multirow{2}{*}{RJ45 Connector} & 12 V connect \newline Sonar connect \newline GPS connect. & \\ 
+\rowcolor{boxcol} & & \\
+\rowcolor{boxcol}& \cbox{yellow}Yellow LED \newline \cbox{green}Green LED & On the respective channel, a valid signal is received. \\\bottomrule
+\end{tabular}	
+\caption{Meaning of control and connection elements.}
+\end{table}
+
+Insert the SD-card \textbf{before turning on} the logger. Remove the SD-card from the logger only when the logger is \textbf{turned off}. On every start and every hour, a new file will be created on the card automatically. 
+
+\subsection{Errors}
+
+If the red Status-LED flashes regularly every second, an error has occurred during writing the data. This can happen during start or operation of the logger. The following errors are displayed with the Status-LED:
+
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{p{2cm}p{3cm}p{4cm}} \toprule
+ Status & Meaning & Action\\ \midrule
+\cbox{red}Red flashing & SD-card is full & Replace SD-card with an empty one. \\ 
+\cbox{red}Red flashing & SD-card is improperly\newline formatted & The SD-card uses a not supported filesystem. FAT-16 and FAT-32 are supported. \\
+\cbox{red}Red flashing & SD-card not writeable or not recognized. & Check the write protection switch of the SD-card.\newline Check the card on your computer. \\
+\cbox{green}Green \newline\cbox{red}Red flashing & System error & Disconnect the logger temporary from voltage.  \\ \bottomrule
+\end{tabular}	
+\caption{Possible causes -- displayed by Status-LED}
+\end{table}
+
+
+\subsection{Operation Indicators}
+
+Table \ref{tab:anzeige} shows the conditions of the Status-LED in normal operation.
+
+\begin{table}[H]
+\centering
+\rowcolors{1}{}{boxcol}
+\begin{tabular}{p{4cm}p{5cm}} \toprule
+ Status & Meaning\\ \midrule
+\cbox{green}Green,\newline a few seconds & Operation system is loading.   \\
+\cbox{green}Green,\newline about 30 seconds & Selfttest/initialization of the logger.\\
+\cbox{green}\textbf{Green \newline\cbox{red}Red flickering} & \textbf{The logger recieves data and writes it to the SD-card.} \\
+LED off & Logger is shutting down. \\
+\cbox{green}Green lights up shortly \newline\cbox{red}Red lights up shortly & LED lights up after shutdown to unload the energy buffer. \\ \bottomrule
+
+\end{tabular}	
+\caption{Overview of the operation modes of the Status-LED}
+\label{tab:anzeige}
+\end{table}
+
+\subsection{Preparing the SD-Card}
+
+We recommend a \textbf{4 GB SD-card}. It can record up to 40 days. (About 4 MB per hour, 100 MB per day). The SD-card must be formatted with FAT-32. 
+
+\subsection{Firmware Update with SD-Card}\label{sec:firmware}
+
+A card with \textbf{FAT-16} file system must be used for the firmware update. The easiest way is, to use an SD-card with 2 GB or smaller. This can be simply formated with FAT-16 (on some operation systems are also just plain FAT) or creating a small partition. The OpenSeaMap Data Logger supports 2 GiB FAT-16 filesystems.
+
+The latest firmware file can be downloaded from \textbf{http://wkla.dyndns.org/mcslog/} and put on the root of the SD-card.
+\newpage
+\begin{Hinweis}
+A software tool that simplifies the update process is in progress.  
+\end{Hinweis}
+
+\section{Operation}
+
+\subsection{For Skippers}
+
+\subsubsection{Start}
+
+If the logger is connected to the power supply of navigation devices, it starts automatically when the navigation devices are turned on. If the navigation devices are turned off (or if there is a power interruption), the log file is automatically closed. Once the power supply is switched on again, a new file is created automatically. 
+
+The logger has a built-in power-backup-circuit ensuring that there is no loss of data during interruption of the supply voltage.
+\newpage
+\subsubsection{SD-Card}
+
+On an SD-card with 2 GB can be recorded for about 18 days. Approximately 100 MB of data recorded per day. This can of course vary according to the GPS and sonar used. Thus, the SD-card needs to be replaced in time. 
+
+\subsection{For Charter Companies}
+
+For simple handling, use two SD-cards for each device. 
+
+After each charter trip the SD-card needs to be replaced. To do this, label two SD-cards for each vessel with the ship's name. One card is plugged into the logger, the other one is kept in the office with the vessel/charter-documents.
+
+The logger starts automatically with turning on the navigation devices. The charter customers don't need to worry about anything. The following checklists can be customized for your own needs:  
+
+\subsubsection{When Crew Changes} 
+\begin{compactenum}
+\item Remove the written SD-card 
+\item Insert the empty SD-card (the one from the vessel documents)
+\item Bring the removed SD-card with the ship's documents to the office 
+\end{compactenum}
+
+\subsubsection{During Crew Briefing} 
+
+It would be nice if the charter company’s employees in charge briefly tell that the charter company participates in the \textbf{project ''Collecting Shallow Water Depths''}. And that the skipper can support the project particularly well by selectively moving back and forth in bays and harbor entrances to capture the depth of these key points. This could also be advertised on your website. 
+\newpage
+\subsubsection{In the Office}
+
+\begin{compactenum}
+\item Put removed card into a PC and upload data to the server \newline(see \ref{sec:upload} \nameref{sec:upload} / Page \pageref{sec:upload}).
+\item Assign the data that is to be uploaded to the correct ship in the menu \newline ''Upload tracks'' (choose from the list of vessels)
+\item Erase data on the described card, put empty card to the shipping documents.
+\item Note in the ship's documentation: \newline Data uploaded <trip/customer> <date> \newline Data deleted <trip/customer> <date> 
+\end{compactenum}
+
+
+\subsubsection{Metadata}
+
+For a reliable evaluation, we need accurate information about the ship and the measuring devices used. This data need to be entered only once per vessel and is then valid for all log files of this ship.
+
+\subsection{Uploading Data}\label{sec:upload}
+
+\begin{compactenum}
+\item You need a computer with internet connection and SD-card reader.
+\item Put the SD-card into the SD-card slot of your computer.
+\item Please log in with your username: \textbf{http://depth.openseamap.org} 
+\item Enter the metadata of your ship and of the measuring devices.
+If you have already registered your ship, and nothing has changed in the measuring devices, you can simply select your ship from the list of your ships.
+\item Upload the data to the server.
+\end{compactenum}
+
+\section{Legal}
+\textbf{\large{Dear customers!}}\normalsize
+
+This product has been developed and tested with utmost care. Nonetheless, it is not possible to rule out all errors in the product's hard- or software. Importer/manufacturer is only liable in case of intent or gross negligence according to legal regulation. Beyond that, importer/manufacturer is only liable according to the law on product liability concerning hazards to life, body, and health and the culpable violation of essential contractual obligations. The damage claim for the violation of essential contractual obligations is limited to the contract-specific, predictable damage, unless in cases of mandatory liability according to the law on product liability.
+
+This product was developed in compliance with the applicable European directives and therefore carries the CE mark. Its intended use (logging of sounder, position, attitude, and time data for the sole purpose of providing data to the OSM project) is described in this instruction. In the event of non-conforming use or modification of the product, you will be solely responsible for complying with all applicable regulations. You should therefore take care to assemble the circuits as described in the instructions. The product may only be passed on along with the instruction and this note.
+
+Electronic waste may not disposed of as household refuse. It must be handed in for recycling to the local recycling site. Information concerning this can be obtained from your local government.
+
+\bild{0.8}{ce}{Conform the CE requirements}
+\bild{0.8}{muell}{After life-time the product has to be disposed to a selective collection}
+
+
+\subsection{Importer for Germany}
+\textbf{AK MODUL-BUS Computer GmbH\\
+Münsterstr. 2\\
+48477 Hörstel-Riesenbeck }
+
+\section{Acknowledgement}
+
+\textbf{OpenSeaMap would like to say thank you to:}
+
+\textbf{Wilfried Klaas}\\
+For the development of the hardware and software of the logger and for this guide.
+
+\textbf{KoBo Trading Company Limited, HongKong}\\
+For economically enabling this product.
+
+\textbf{Kobo (Shenzhen) electronics company Limited, Shenzhen, China}\\
+For prototyping and serial production.
+
+\textbf{AK Modulbus GmbH}\\
+For their willingness to take over the distribution of the product. 
+AK module bus, however, can not provide technical support for this product. 
+
+\textbf{The editorial staff Cornelia, Markus and Patrick}\\
+For editorial, lectorate and layout.
+
+\newpage
+\textbf{The Community of Wikimedia Commons}\\
+For lots of pictures, which we have also used in this manual. Especially Mabschaaf and ThePolish.
+
+\vspace{2.5cm}
+
+\textbf{Special thanks to:}
+
+\textbf{The developers of OpenSeaMap}\\
+For the project ''Water Depths by Crowdsourcing'' and the idea to develop this data logger.
+
+\textbf{The Skippers}\\
+For collecting waterdepths worldwide and makeing this great nautical chart.
+
+% Notizseiten
+\newpage
+\thispagestyle{empty}
+\hspace{1cm} 
+\newpage
+\thispagestyle{empty}
+\hspace{1cm} 
+
+\end{document} % Dokument Ende
